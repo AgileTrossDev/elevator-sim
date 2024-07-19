@@ -1,4 +1,11 @@
 # Elevator Simulation
+Written in C++.  
+
+Compile
+```g++ --std=c++17 -o elevator main.cpp```
+
+Usage:
+```./elevator start=-42 floor=-99,1,-5,100```
 
 ## Problemn Description:
 
@@ -24,5 +31,6 @@ The result should be an executable, or script, that can be run with the followin
 - Consider streaming the calculated output to a Time Series DB/Grafana or dynamic webpage via Websockets so that the elevator usage can be more accurately tracked.
 - Make application config driven, so that travel time, and min/max floors can be defined.   Possibly use JSON/YAML/XML or use 12-Factor Container Environment injection.
 - Add Unit Tests and Functional Tests
+- Use CMake or at least define a Makefile
 
 
