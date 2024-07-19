@@ -1,10 +1,10 @@
 # Elevator Simulation
 Written in C++.  
 
-Compile
+### Compile
 ```g++ --std=c++17 -o elevator main.cpp```
 
-Usage:
+### Usage:
 ```./elevator start=-42 floor=-99,1,-5,100```
 
 ## Problemn Description:
