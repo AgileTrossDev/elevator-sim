@@ -8,6 +8,9 @@
 #include <sstream>
 #include <vector>
 
+#include "job.h"
+#include "elevator.h"
+
 // Using
 using std::abs;
 using std::cout;
@@ -16,40 +19,6 @@ using std::cerr;
 using std::string;
 using std::stringstream;
 using std::vector;
-
-// Constants
-const int TRAVEL_TIME = 10;
-
-// JobRequest - Maintains the state of the job being executed
-//
-// ASSUMPTION: Defaults to starting at the first floor, with no requested floors.
-struct JobRequest {
-
-    // Attributes
-    int start = 1;
-    vector<int> floors = {};
-    int total_travel_time = -1;
-    
-    // Operations
-    void display();      
-    bool is_valid();
-
-};
-
-// Returns whether Job Request is in a valid state
-// 
-// ASSUMPTION: No additional validation is needed, until business rules are defined.  Either the default values or the inputed integers will surfice.  
-// If default values should not be used, then we would check if the job was correctly initialized here.
-bool JobRequest::is_valid() { 
-    return true; 
-}
-
-// Displays the current job request state
-void JobRequest::display() { 
-    cout << total_travel_time << " " << start;
-    for (const auto& floor : floors) { cout << ", " << floor; }
-    cout << endl;
-}
 
 // Refactored helper function that splits a comma-separated string of integer values and populates a vector of integers
 //
@@ -103,19 +72,7 @@ void display_usage(int argc, char* argv[]) {
     }
 }
 
-// Perform the travel time calculation
-//
-// NOTE: This is intentionally not reliant on the Job Request.
-int calculate_travel_time(int current_floor, const vector<int> &floor_requests){
-    int total_time = 0;
 
-    for (auto floor_request : floor_requests) {
-        total_time += abs(current_floor - floor_request) * TRAVEL_TIME;
-        current_floor = floor_request;
-    }
-
-    return total_time;
-}
 
 
 // Main Execution
@@ -130,8 +87,10 @@ int main(int argc, char* argv[]) {
         return 1; 
     }
 
+    auto elevator = Elevator::build("M");
+
     // Perform Calculation,  set the travel time and then display the Job Result
-    job.total_travel_time = calculate_travel_time(job.start, job.floors);
+    job.total_travel_time = elevator->calculate_travel_time(job.start, job.floors);
     job.display();
        
     return 0;
